@@ -21,5 +21,9 @@
     "url": "git@gitlab.informatika.org:if3110-2019-02-k02-12/ws-transaksi.git"
   },
   "author": "Nixon, Bram, Renita",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-google": "^0.14.0"
+  }
 }
