@@ -91,6 +91,7 @@ app.post('/createTransaction', (request, response)=>{
   }
 });
 
+// tambahin kalau transaksi id ga ada
 app.post('/changeStatus/:id_transaksi', (request, response)=>{
   response.setHeader('Content-Type', 'application/json');
   if (typeof request.params.id_transaksi === 'undefined') {
@@ -111,7 +112,7 @@ app.post('/changeStatus/:id_transaksi', (request, response)=>{
           status: false,
           message: err.toString(),
         });
-      } else { // asumsi nomor va unik untuk setiap transaksi
+      } else {
         response.json({
           status: true,
           message: 'success update transaction',
@@ -121,9 +122,32 @@ app.post('/changeStatus/:id_transaksi', (request, response)=>{
   }
 });
 
-// get id_pengguna
-app.get('/:id_pengguna', (request, response)=>{
-  // akses id_pengguna = request.params.id_pengguna
+// tambahin kalau user ga ada
+app.get('/getTransaksi/:id_pengguna', (request, response)=>{
+  response.setHeader('Content-Type', 'application/json');
+  if (typeof request.params.id_pengguna === 'undefined') {
+    response.json({
+      status: false,
+      message: 'id_transaksi required in url path',
+    });
+  } else {
+    query = `SELECT * FROM \`transactions\` WHERE \`id_pengguna\`= ${request.params.id_pengguna}`;
+    db.query(query, (err, result)=>{
+      console.log(JSON.stringify(result));
+      if (err) {
+        response.json({
+          status: false,
+          message: err.toString(),
+        });
+      } else {
+        response.json({
+          status: true,
+          data: JSON.stringify(result),
+          message: 'success get transaction',
+        });
+      }
+    });
+  }
 });
 
 
