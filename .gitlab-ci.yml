@@ -11,14 +11,13 @@ lint:
         - echo "run lint"
         - npm run lint
 
-# deploy:
-#     stage: deploy
-#     script:
-#         - cd ~
-#         - rm -rf bank-pro/
-#         - git clone git@gitlab.informatika.org:if3110-2019-02-k02-12/bank-pro.git
-#         - cd bank-pro/
-#         - npm install 
-#         - npm run build
-#         - forever stopall
-#         - forever start -c "serve -s" build/
+deploy:
+    stage: deploy
+    script:
+        - cd ~
+        - rm -rf ws-transaksi/
+        - git clone git@gitlab.informatika.org:if3110-2019-02-k02-12/ws-transaksi.git
+        - cd ws-transaksi/
+        - npm install
+        - pm2 stop all
+        - pm2 start index.js
