@@ -1,0 +1,24 @@
+stages:
+  - lint
+  # - deploy
+
+
+lint:
+    stage: lint
+    script:
+        - echo "install"
+        - npm install
+        - echo "run lint"
+        - npm run lint
+
+# deploy:
+#     stage: deploy
+#     script:
+#         - cd ~
+#         - rm -rf bank-pro/
+#         - git clone git@gitlab.informatika.org:if3110-2019-02-k02-12/bank-pro.git
+#         - cd bank-pro/
+#         - npm install 
+#         - npm run build
+#         - forever stopall
+#         - forever start -c "serve -s" build/

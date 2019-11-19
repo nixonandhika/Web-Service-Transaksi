@@ -6,7 +6,6 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
-    "eslint": "^6.6.0",
     "express": "^4.17.1",
     "mysql": "^2.17.1",
     "nodemon": "^1.19.4"
@@ -14,7 +13,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index",
-    "dev": "nodemon index"
+    "dev": "nodemon index",
+    "lint": "eslint *.js"
   },
   "repository": {
     "type": "git",
