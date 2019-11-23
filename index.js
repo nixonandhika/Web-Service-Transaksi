@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -11,6 +12,10 @@ app.use(bodyParser.urlencoded({
 }));
 const PORT = process.env.PORT;
 
+app.use(cors({
+  origin: '*',
+  credentials: true,
+}));
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -40,20 +45,10 @@ app.post('/createTransaction', (request, response)=>{
       status: false,
       message: 'id_pengguna is required',
     });
-  } else if (typeof request.body.nomor_va === 'undefined') {
+  } else if (typeof request.body.id_schedule === 'undefined') {
     response.json({
       status: false,
-      message: 'nomor_va is required',
-    });
-  } else if (typeof request.body.id_film === 'undefined') {
-    response.json({
-      status: false,
-      message: 'id_film account is required',
-    });
-  } else if (typeof request.body.jadwal_film === 'undefined') {
-    response.json({
-      status: false,
-      message: 'jadwal_film account is required',
+      message: 'id_schedule account is required',
     });
   } else if (typeof request.body.no_kursi === 'undefined') {
     response.json({
@@ -62,8 +57,8 @@ app.post('/createTransaction', (request, response)=>{
     });
   } else {
     const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    query = `INSERT INTO \`transactions\`(\`id_pengguna\`, \`nomor_va\`, \`id_film\`, \`jadwal_film\`, \`no_kursi\`, \`waktu_transaksi\`, \`status\`)`;
-    query += ` VALUES (${request.body.id_pengguna},${request.body.nomor_va},${request.body.id_film},'${request.body.jadwal_film}',${request.body.no_kursi},'${date}',0);`;
+    query = `INSERT INTO \`transactions\`(\`id_pengguna\`, \`id_schedule\`, \`no_kursi\`, \`waktu_transaksi\`, \`status\`)`;
+    query += ` VALUES (${request.body.id_pengguna},${request.body.id_schedule},${request.body.no_kursi},'${date}',0);`;
     db.query(query, (err, result)=>{
       if (err) {
         response.json({
@@ -71,7 +66,7 @@ app.post('/createTransaction', (request, response)=>{
           message: err.toString(),
         });
       } else { // asumsi nomor va unik untuk setiap transaksi
-        query = `SELECT * FROM \`transactions\` WHERE nomor_va = ${request.body.nomor_va};`;
+        query = `SELECT * FROM \`transactions\` WHERE id_schedule = ${request.body.id_schedule} AND id_pengguna = ${request.body.id_pengguna};`;
         db.query(query, (err, result)=>{
           if (err) {
             response.json({

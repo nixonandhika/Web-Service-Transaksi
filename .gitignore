@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+databasebank.txt
+package-lock.json
+pembagiantugas.txt

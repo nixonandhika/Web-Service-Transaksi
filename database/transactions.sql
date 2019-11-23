@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 19, 2019 at 11:38 AM
+-- Generation Time: Nov 23, 2019 at 02:29 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -42,11 +42,13 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`id_transaksi`, `id_pengguna`, `id_schedule`, `no_kursi`, `waktu_transaksi`, `status`) VALUES
-(4, 1, 4987, 2, '2019-10-29 07:19:05', 0),
-(5, 1, 4987, 2, '2019-10-29 07:20:46', 0),
-(6, 1, 4987, 2, '2019-10-29 07:27:29', 0),
-(7, 1, 4987, 2, '2019-10-29 09:48:53', 0),
-(8, 2, 4987, 25, '2019-11-08 20:08:50', 2);
+(4, 1, 1, 2, '2019-10-29 07:19:05', 0),
+(5, 1, 5, 2, '2019-10-29 07:20:46', 0),
+(6, 1, 7, 2, '2019-10-29 07:27:29', 0),
+(7, 1, 2, 2, '2019-10-29 09:48:53', 0),
+(8, 2, 10, 25, '2019-11-08 20:08:50', 2),
+(9, 14, 1, 1, '2019-11-23 00:00:00', 0),
+(10, 2, 1, 12, '2019-11-23 13:08:32', 1);
 
 --
 -- Indexes for dumped tables
@@ -66,7 +68,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id_transaksi` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_transaksi` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
