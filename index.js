@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const cors = require('cors');
+// const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -10,12 +10,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
+// const PORT = 5000 || process.env.PORT;
 const PORT = process.env.PORT;
 
-app.use(cors({
-  origin: '*',
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: '*',
+//   credentials: true,
+// }));
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -35,7 +36,6 @@ db.connect((err) => {
 
 app.get('/', (request, response)=>{
   response.send('<h1>TEST</h1>');
-  console.log('get');
 });
 
 app.post('/createTransaction', (request, response)=>{
@@ -66,7 +66,8 @@ app.post('/createTransaction', (request, response)=>{
           message: err.toString(),
         });
       } else { // asumsi nomor va unik untuk setiap transaksi
-        query = `SELECT * FROM \`transactions\` WHERE id_schedule = ${request.body.id_schedule} AND id_pengguna = ${request.body.id_pengguna};`;
+        query = `SELECT * FROM \`transactions\` WHERE id_schedule = ${request.body.id_schedule} AND id_pengguna = ${request.body.id_pengguna} AND
+        no_kursi = ${request.body.no_kursi};`;
         db.query(query, (err, result)=>{
           if (err) {
             response.json({
